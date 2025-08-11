@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopHub - E-commerce Product Catalog</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-shopping-bag"></i> ShopHub
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" onclick="showSection('products')">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showSection('categories')">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showSection('about')">About</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-outline-light me-3" onclick="showSection('cart')" id="cartButton">
+                        <i class="fas fa-shopping-cart"></i>
+                        Cart (<span id="cartCount">0</span>)
+                    </button>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user"></i> Account
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user-plus"></i> Register</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid">
+        <!-- Products Section -->
+        <div id="products" class="content-section">
+            <!-- Hero Section -->
+            <div class="hero-section bg-gradient text-white py-5 mb-4">
+                <div class="container text-center">
+                    <h1 class="display-4 fw-bold mb-3">Welcome to ShopHub</h1>
+                    <p class="lead mb-4">Discover amazing products at unbeatable prices</p>
+                    <div class="search-container mx-auto" style="max-width: 600px;">
+                        <div class="input-group input-group-lg">
+                            <input type="text" class="form-control" id="searchInput" placeholder="Search products...">
+                            <button class="btn btn-light" type="button" onclick="searchProducts()">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <!-- Filters Sidebar -->
+                    <div class="col-lg-3 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-filter"></i> Filters</h5>
+                            </div>
+                            <div class="card-body">
+                                <!-- Category Filter -->
+                                <div class="mb-4">
+                                    <h6>Category</h6>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="categoryFilter" value="all" id="catAll" checked>
+                                        <label class="form-check-label" for="catAll">All Categories</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="categoryFilter" value="electronics" id="catElectronics">
+                                        <label class="form-check-label" for="catElectronics">Electronics</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="categoryFilter" value="clothing" id="catClothing">
+                                        <label class="form-check-label" for="catClothing">Clothing</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="categoryFilter" value="home" id="catHome">
+                                        <label class="form-check-label" for="catHome">Home & Garden</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="categoryFilter" value="books" id="catBooks">
+                                        <label class="form-check-label" for="catBooks">Books</label>
+                                    </div>
+                                </div>
+
+                                <!-- Price Range -->
+                                <div class="mb-4">
+                                    <h6>Price Range</h6>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="number" class="form-control form-control-sm" id="minPrice" placeholder="Min">
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number" class="form-control form-control-sm" id="maxPrice" placeholder="Max">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Rating Filter -->
+                                <div class="mb-4">
+                                    <h6>Rating</h6>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="ratingFilter" value="all" id="ratingAll" checked>
+                                        <label class="form-check-label" for="ratingAll">All Ratings</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="ratingFilter" value="4" id="rating4">
+                                        <label class="form-check-label" for="rating4">4+ Stars</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="ratingFilter" value="3" id="rating3">
+                                        <label class="form-check-label" for="rating3">3+ Stars</label>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-primary w-100" onclick="applyFilters()">Apply Filters</button>
+                                <button class="btn btn-outline-secondary w-100 mt-2" onclick="clearFilters()">Clear All</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Products Grid -->
+                    <div class="col-lg-9">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div>
+                                <span id="productCount">0</span> products found
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <label class="me-2">Sort by:</label>
+                                <select class="form-select form-select-sm" id="sortSelect" onchange="sortProducts()" style="width: auto;">
+                                    <option value="name">Name</option>
+                                    <option value="price-low">Price: Low to High</option>
+                                    <option value="price-high">Price: High to Low</option>
+                                    <option value="rating">Rating</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="productsGrid" class="row">
+                            <!-- Products will be loaded here -->
+                        </div>
+
+                        <!-- Pagination -->
+                        <nav aria-label="Products pagination" class="mt-4">
+                            <ul class="pagination justify-content-center" id="pagination">
+                                <!-- Pagination will be generated here -->
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Section -->
+        <div id="categories" class="content-section" style="display: none;">
+            <div class="container py-5">
+                <h2 class="text-center mb-5">Shop by Category</h2>
+                <div class="row" id="categoriesGrid">
+                    <!-- Categories will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Cart Section -->
+        <div id="cart" class="content-section" style="display: none;">
+            <div class="container py-5">
+                <h2 class="mb-4"><i class="fas fa-shopping-cart"></i> Shopping Cart</h2>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <div id="cartItems">
+                                    <div class="text-center py-5">
+                                        <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+                                        <h5 class="text-muted">Your cart is empty</h5>
+                                        <p class="text-muted">Add some products to get started!</p>
+                                        <button class="btn btn-primary" onclick="showSection('products')">Continue Shopping</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Order Summary</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Subtotal:</span>
+                                    <span id="cartSubtotal">$0.00</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Shipping:</span>
+                                    <span id="cartShipping">$0.00</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Tax:</span>
+                                    <span id="cartTax">$0.00</span>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between fw-bold">
+                                    <span>Total:</span>
+                                    <span id="cartTotal">$0.00</span>
+                                </div>
+                                <button class="btn btn-success w-100 mt-3" id="checkoutBtn" disabled>
+                                    <i class="fas fa-credit-card"></i> Checkout
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div id="about" class="content-section" style="display: none;">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="text-center mb-5">About ShopHub</h2>
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="lead">Welcome to ShopHub, your one-stop destination for quality products at competitive prices.</p>
+                                <p>This e-commerce catalog demonstrates a full-stack web application built with modern technologies including HTML5, CSS3, JavaScript, Bootstrap, PHP, and Python.</p>
+                                
+                                <h5 class="mt-4">Features:</h5>
+                                <ul>
+                                    <li>Responsive product catalog with search and filtering</li>
+                                    <li>Shopping cart functionality</li>
+                                    <li>Product categories and ratings</li>
+                                    <li>RESTful API backend</li>
+                                    <li>Data analytics and reporting</li>
+                                </ul>
+
+                                <h5 class="mt-4">Technologies Used:</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <strong>Frontend:</strong>
+                                        <ul>
+                                            <li>HTML5 & CSS3</li>
+                                            <li>JavaScript (ES6+)</li>
+                                            <li>Bootstrap 5</li>
+                                            <li>Font Awesome</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>Backend:</strong>
+                                        <ul>
+                                            <li>PHP 7.4+</li>
+                                            <li>Python 3.8+</li>
+                                            <li>JSON Data Storage</li>
+                                            <li>RESTful API</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div class="modal fade" id="productModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productModalTitle">Product Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img id="productModalImage" src="" alt="" class="img-fluid rounded">
+                        </div>
+                        <div class="col-md-6">
+                            <h4 id="productModalName"></h4>
+                            <div id="productModalRating" class="mb-2"></div>
+                            <h3 class="text-primary" id="productModalPrice"></h3>
+                            <p id="productModalDescription"></p>
+                            <div class="mb-3">
+                                <label for="productQuantity" class="form-label">Quantity:</label>
+                                <input type="number" class="form-control" id="productQuantity" value="1" min="1" max="10" style="width: 80px; display: inline-block;">
+                            </div>
+                            <button class="btn btn-primary btn-lg" onclick="addToCartFromModal()">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-shopping-bag"></i> ShopHub</h5>
+                    <p>Your trusted e-commerce partner</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>&copy; 2025 ShopHub. All rights reserved.</p>
+                    <p>Built with HTML, CSS, JavaScript, PHP & Python</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
