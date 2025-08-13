@@ -167,19 +167,6 @@ class EcommerceApp {
             },
             {
                 id: 10,
-                name: "Kitchen Knife Set",
-                description: "Professional chef knife set with wooden block and sharpening steel.",
-                price: 129.99,
-                originalPrice: 159.99,
-                category: "home",
-                rating: 4.9,
-                reviews: 1456,
-                image: "https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=400&h=300&fit=crop",
-                inStock: true,
-                badges: ["sale", "featured"]
-            },
-            {
-                id: 11,
                 name: "Fiction Novel",
                 description: "Bestselling fiction novel with compelling characters and plot twists.",
                 price: 14.99,
@@ -191,7 +178,7 @@ class EcommerceApp {
                 badges: []
             },
             {
-                id: 12,
+                id: 11,
                 name: "Wireless Mouse",
                 description: "Ergonomic wireless mouse with precision tracking and long battery life.",
                 price: 34.99,
